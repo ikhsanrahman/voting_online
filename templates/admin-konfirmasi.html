@@ -1,0 +1,34 @@
+{%extends "baseadmin.html"%}
+{%block content%}
+
+	<div class="container mt-5">
+	<br><br>
+
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">No.</th>
+	      <th scope="col">Nama</th>
+	      <th scope="col">NIM</th>
+	      <th scope="col">Konfirmasi</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{%for u in user%}
+	    <tr>
+	      <th scope="row">{{loop.index}}</th>
+	      <td>{{u.name}}</td>
+	      <td>{{u.nim}}</td>
+	      <td>
+	      	<form method="post" action="/admin/konfirm/{{u.id}}">
+	      		<input type="submit" class="btn btn-primary" name="" value="Konfirmasi">
+	      	</form>
+	      </td>
+	    </tr>
+	    {%endfor%}
+	  </tbody>
+	</table>
+	</div>
+
+{%endblock%}
+

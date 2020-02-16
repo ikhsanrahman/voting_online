@@ -1,0 +1,63 @@
+{%extends "baseadmin.html"%}
+
+{%block content%}
+
+	<div class="container mt-5">
+	<button class="btn btn-primary mt" data-toggle="modal" data-target="#exampleModal">Tambah Kandidat</button>
+	<br><br>
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="document" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Tambah Kandidat</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<form method="post" action="/admin/candidate" enctype="multipart/form-data">
+			  <div class="form-group">
+			    <label for="nama">Nama Kandidat</label>
+			    <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan nama kandidat">
+			  </div>
+
+			  <div class="form-group">
+			    <label for="foto">Foto</label>
+			    <div class="custom-file">
+				  <input type="file" name="file" class="custom-file-input" id="customFile">
+				  <label class="custom-file-label" for="customFile">Pilih berkas foto</label>
+				</div>
+			  </div>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">No.</th>
+	      <th scope="col">Nama</th>
+	      <th scope="col">Foto</th>
+	      <th scope="col">Hapus</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{%for c in candidates%}
+	    <tr>
+	      <th scope="row">{{c.id}}</th>
+	      <td>{{c.name}}</td>
+	      <td>{{c.filename}}</td>
+	      <td><a class="btn btn-danger" href="/admin/hapus/{{c.id}}">Hapus</a></td>
+	    </tr>
+	    {%endfor%}
+	  </tbody>
+	</table>
+	</div>
+
+{%endblock%}

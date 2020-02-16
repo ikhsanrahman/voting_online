@@ -1,0 +1,3 @@
+frontend for evoting
+
+run: make dev and open localhost:8000

@@ -1,0 +1,31 @@
+{%extends "base.html"%}
+
+{%block content%}
+
+  <div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Petunjuk</h4>
+      <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+      <hr>
+      <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    </div>
+
+    <br>
+    
+    <div class="row">
+      <div class="col-sm col-sm-6">
+        <form method="post" action="/login">
+          {%if message%}
+            <p>{{message}}</p>
+          {%endif%}
+          <div class="form-group">
+            <label for="nim">Nomor Induk Mahasiswa</label>
+            <input class="form-control" type="text" name="nim" placeholder="misal: 190123209" required>
+          </div>
+          <input class="btn btn-primary" type="submit" name="">
+        </form>
+      </div>
+    </div>
+  </div>  
+
+{%endblock%}

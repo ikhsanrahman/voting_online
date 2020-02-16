@@ -1,0 +1,55 @@
+{%extends "baseadmin.html"%}
+
+{%block content%}
+
+  <div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Laman Administrator</h4>
+      <h5>Untuk menambahkan kandidat, silahkan klik bagian kandidat.</h5>
+      <hr>
+    </div>
+
+    <br>
+
+  <h3 class="strong display-5 text-center">Persentase suara masuk (suara masuk / jumlah pemilih) * 100</h3>  
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: {{rasio}}%;" aria-valuenow="{{rasio}}" aria-valuemin="0" aria-valuemax="100">{{rasio}}%</div>
+  </div>
+  <br>
+  <hr>
+  <h3 class="strong display-5 text-center">Hasil perolehan suara per kandidat</h3>  
+  <canvas id="myChart" width="400" height="400"></canvas>
+  <script type="text/javascript" src="/static/js/chart.js"></script>
+
+  <script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          // change to candidates
+          labels: {{candidates | safe}},
+          datasets: [{
+              label: '# of Votes',
+              // change to vote counts per candidate
+              data: {{counts | safe}},
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+
+  </script>
+
+
+  </div>  
+
+
+{%endblock%}
