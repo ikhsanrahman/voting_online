@@ -10,10 +10,10 @@ manager = Manager(app)
 
 manager.add_command('db', MigrateCommand)
 
-@manager.command
-def prod():
-    host = '0.0.0.0'
-    app.run(host=host, port=5000)
+# @manager.command
+# def prod():
+#     host = '0.0.0.0'
+#     app.run(host=host, port=5000)
 
 @manager.command
 def init_db():
@@ -30,5 +30,5 @@ def add_admin():
     db.session.commit()
     print(f"admin: {name} is created with nim: {nim}")
 
-# if __name__ == '__main__':
-#     manager.run()
+if __name__ == '__main__':
+    manager.run()
