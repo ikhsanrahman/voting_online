@@ -25,13 +25,20 @@ db_change:
 	python3 manage.py db migrate
 	python3 manage.py db upgrade
 
+run:
+	python3 wsgi.py db init
+	python3 wsgi.py db migrate
+	python3 wsgi.py db upgrade
+	python3 manage.py prod
+
+
 init_db:
 	python3 wsgi.py db init
 	python3 wsgi.py db migrate
 	python3 wsgi.py db upgrade
 
 add_admin:
-	python3 manage.py add_admin
+	python3 wsgi.py add_admin
 
 prod:
 # 	gunicorn wsgi:manager prod -b 0.0.0.0:80 -w 3
