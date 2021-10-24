@@ -1,1 +1,1 @@
-web: make init_db & make add_admin & python3 wsgi.py prod
+web: make run

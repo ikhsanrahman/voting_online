@@ -26,10 +26,9 @@ db_change:
 	python3 manage.py db upgrade
 
 run:
-	python3 wsgi.py db init
-	python3 wsgi.py db migrate
-	python3 wsgi.py db upgrade
-	python3 manage.py prod
+	make init_db
+	make add_admin
+	python3 wsgi.py prod
 
 
 init_db:
