@@ -1,0 +1,1 @@
+web: gunicorn wsgi:manager prod -w 3
