@@ -40,7 +40,7 @@ add_admin:
 	python3 manage.py add_admin
 
 prod:
-	sudo env/bin/gunicorn wsgi:app prod -b 0.0.0.0:80 -w 3
+	sudo env/bin/gunicorn wsgi:app -b 0.0.0.0:80 -w 3
 
 reset_vote:
 	python3 script/reset-voters.py
