@@ -1,1 +1,1 @@
-web: gunicorn wsgi:manager prod -w 3
+web: make init_db & make add_admin & python3 manage.py prod

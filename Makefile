@@ -35,7 +35,7 @@ add_admin:
 
 prod:
 # 	gunicorn wsgi:manager prod -b 0.0.0.0:80 -w 3
-	gunicorn wsgi:manager prod -w 3
+	gunicorn wsgi:manager -w 3
 
 reset_vote:
 	python3 script/reset-voters.py
