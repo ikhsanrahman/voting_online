@@ -32,8 +32,8 @@ run:
 
 
 init_db:
-	python3 -m venv env
-	source env/bin/activate
+# 	python3 -m venv env
+# 	source env/bin/activate
 	python3 manage.py db init
 	python3 manage.py db migrate
 	python3 manage.py db upgrade
@@ -42,7 +42,7 @@ add_admin:
 	python3 manage.py add_admin
 
 prod:
-	env/bin/gunicorn wsgi:app -b 0.0.0.0:80 -w 3
+	gunicorn wsgi:app -b 0.0.0.0:80 -w 3
 
 reset_vote:
 	python3 script/reset-voters.py
