@@ -2,17 +2,42 @@
 
 {%block content%}
 
+  
+
   <div class="container mt-5">
-    <div class="alert alert-success" role="alert">
-      <h4 class="alert-heading">Petunjuk</h4>
-      <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-      <hr>
-      <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    <div class="row text-center">
+      <div class="col-sm">
+        <img class="img-thumbnail" src="/static/logo-3.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+     <div class="col-sm">
+        <img class="img-thumbnail" src="/static/unri.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+      <div class="col-sm">
+        <img class="img-thumbnail" src="/static/logo-2.png" style="width: 250px; height: 300px"></img>
+      </div>
+
     </div>
 
-    <br>
+
+    <div class="alert alert-success mt-4" role="alert">
+      <h4 class="alert-heading text-center">Selamat Datang di PEMIRA FMIPA UNRI 2020</h4>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Masuk Sebagai
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/login_admin">Admin</a>
+        <a class="dropdown-item" href="/login_pemilih">Pemilih</a>
+      </div>
+    </div>
+
+    <!-- <br> -->
     
-    <div class="row">
+<!--     <div class="row">
       <div class="col-sm col-sm-6">
         <form method="post" action="/login">
           {%if message%}
@@ -25,7 +50,10 @@
           <input class="btn btn-primary" type="submit" name="">
         </form>
       </div>
-    </div>
+    </div> -->
+    <br>
+    <br>
+
   </div>  
 
 {%endblock%}

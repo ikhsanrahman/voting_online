@@ -49,5 +49,9 @@ one user only can vote for one candidates
 
 2. Candidates
 
+- id
+- name
+- 
+
 # deployment
 

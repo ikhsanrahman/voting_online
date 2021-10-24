@@ -1,0 +1,167 @@
+{%extends "base.html"%}
+
+{%block content%}
+
+  <hr class="my-4 bg-dark">
+  <br>
+  <div class="jumbotron jumbotron-fluid mt-n4" style="background-image: '/static/logo-3.png';">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <font size="2" style="font-family: Copperplate;"><h3 class="display-5">Ingin tau sapa kandidat nya ???</h3></font>
+          <!-- <h1 class="display-5"></h1> -->
+          <font size="2" style="font-family: Copperplate;"><p class="lead">Klik tombol dibawah ini <i class="fas fa-hand-point-down"></i></p></font>
+          <div class="text-center">
+            <a class="btn btn-primary btn-lg" href="#" role="button" data-toggle="modal" data-target="#LihatKandidat">Lihat Kandidat</a>
+          </div>
+        </div>
+
+        <div class="col">
+          <!-- <h1 class="display-5"></h1> -->
+          <font size="2" style="font-family: Copperplate;"><p class="lead">Untuk melakukan pemilihan, silahkan klik tombol dibawah ini <i class="fas fa-hand-point-down"></i></p></font>
+          <div class="text-center">
+            <a class="btn btn-success btn-lg" href="/login_pemilih" role="button" data-toggle="modal" data-target="#modalPemilih">Peserta Pemilih</a>
+            <a class="btn btn-success btn-lg" href="/login_admin" role="button" data-toggle="modal" data-target="#modalAdmin">Admin</a>
+            <br>
+            <br>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                <div class="alert alert-primary" role="alert">
+                  <font size="2" style="font-family: Copperplate;"><p class="lead">{{message}}</p></font>
+                </div>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+
+        
+        <!-- {%if message%}
+          <font size="2" style="font-family: Copperplate;"><p class="lead">{{message}}</p></font>
+        {%endif%} -->
+      </div>
+
+      <!-- Modal Pemilih -->
+      <div class="modal fade" id="modalPemilih" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Masuk Sebagai Pemilih</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-left">
+              <form method="post" action="/login_pemilih" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="birthday">Email</label>
+                  <input class="form-control" type="email" name="email" placeholder="misal: abc@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="nim">Nomor Induk Mahasiswa</label>
+                  <input class="form-control" type="text" name="nim" placeholder="misal: 190123209" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="selfi+card">Selfi dengan Kartu Mahasiswa</label>
+                  <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1" required>
+                </div>
+                <!-- <input class="btn btn-primary" type="submit" name=""> -->
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button class="btn btn-primary" type="submit">Save changes</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Admin -->
+      <div class="modal fade" id="modalAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Masuk Sebagai Admin</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-left">
+              <form method="post" action="/login_admin">
+                <div class="form-group">
+                  <label for="nim">Password Admin</label>
+                  <input class="form-control" type="text" name="nim" placeholder="misal: 190123209" required>
+                </div>
+                <!-- <input class="btn btn-primary" type="submit" name=""> -->
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button class="btn btn-primary" type="submit">Save changes</button>
+                </div>
+              </form>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Lihat Kandidat -->
+
+      <div class="modal fade" id="LihatKandidat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Daftar Kandidat</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-left">
+              {%if candidates%}
+              <div class="row">
+                {%for c in candidates%}
+                {%if c.display %}
+                <div class="col">
+                  <div class="card mx-auto" style="width: 10rem;">
+                    <img src="/static/img/{{c.filename}}" class="card-img-top" alt="...">
+                    <div class="card-title text-center">
+                      <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.name}}</h3></font>
+                      <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.nim}}</h3></font>
+                      <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.visi}}</h3></font>
+                      <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.misi}}</h3></font>
+                      
+                    </div>
+                  </div>
+                </div>
+                {%else%}
+                <div class="card mx-auto" style="width: 15rem;">
+                  <div class="card-title">
+                    <h2 class="text-center">Kandidat belum di tampilkan.</h2>
+                  </div>
+                </div>  
+                {%endif%}
+                {%endfor%}
+                  
+              </div>
+              {%else%}
+              <div class="card mx-auto" style="width: 15rem;">
+                <div class="card-title">
+                  <h2 class="text-center">Kandidat belum di tampilkan.</h2>
+                </div>
+              </div>
+              {%endif%}
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{%endblock%}

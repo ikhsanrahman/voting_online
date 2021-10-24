@@ -21,5 +21,22 @@ reset:
 sim:
 	python3 script/vote.py
 
-deploy:
-	sudo env/bin/gunicorn app:app -b 0.0.0.0:80 -w 3
+db_change:
+	python3 manage.py db migrate
+	python3 manage.py db upgrade
+
+init_db:
+	python3 wsgi.py db init
+	python3 wsgi.py db migrate
+	python3 wsgi.py db upgrade
+
+add_admin:
+	python3 manage.py add_admin
+
+prod:
+# 	gunicorn wsgi:manager prod -b 0.0.0.0:80 -w 3
+	gunicorn wsgi:manager prod -w 3
+
+reset_vote:
+	python3 script/reset-voters.py
+

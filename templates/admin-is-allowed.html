@@ -1,0 +1,58 @@
+{%extends "baseadmin.html"%}
+{%block content%}
+
+	<div class="container mt-5">
+	<br><br>
+
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">No.</th>
+	      <th scope="col">Nama</th>
+	      <th scope="col">code</th>
+	      <th scope="col">NIM</th>
+	      <th scope="col">Tanggal Lahir</th>
+	      <th scope="col">Photo Selfie</th>
+	      <th scope="col">Konfirmasi</th>
+	      <!-- <th scope="col">Aksi</th> -->
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{%for u in user%}
+	    <tr>
+	      <th scope="row">{{loop.index}}</th>
+	      <td>{{u.name}}</td>
+	      <td>{{u.code}}</td>
+	      <td>{{u.nim}}</td>
+	      {%if u.birthday%}
+	      <td>{{u.birthday}}</td>
+	      {%else%}
+	      <td>YYYY-MM-DD</td>
+	      {%endif%}
+
+	      {%if u.selfi%}
+	      <td><img src="/static/ktm/{{u.selfi}}"></td>
+	      {%else%}
+	      <td>None</td>
+	      {%endif%}
+
+	      <td>
+	      	{%if u.selfi%}
+	      	<form method="post" action="/admin/allow/{{u.id}}">
+	      		<input type="submit" class="btn btn-primary" name="" value="Izinkan">
+	      	</form>
+			{%else%}
+		      <p>Tidak ada Photo</p>
+	      	{%endif%}	      	
+	      </td>
+	      <!-- <td>
+	      	
+	      </td> -->
+	    </tr>
+	    {%endfor%}
+	  </tbody>
+	</table>
+	</div>
+
+{%endblock%}
+

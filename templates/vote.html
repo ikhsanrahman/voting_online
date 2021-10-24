@@ -6,22 +6,51 @@
 
     <div class="alert alert-success" role="alert">
       <h4 class="alert-heading">Petunjuk</h4>
-      <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+      <p>Silahkan Gunakan Hak pilih anda dengan memilih kandidat yang ada dibawah ini</p>
       <hr>
-      <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+      <p class="mb-0">hak pilih cuman bisa digunakan 1 kali</p>
     </div>
 
     <br>
     
     <div class="row">
       
+      <div class="col">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">{{message}} </h4>
+              <div class="text-center">
+                {%if "code" in message%}
+                <font size="2" style="font-family: Copperplate;"><h3 class="display-5">Silahkan vote.</h3></font>
+
+                <!-- <a class="btn btn-primary" href="/login_pemilih">Keluar</a> -->
+                {%else%}
+                <a class="btn btn-primary" href="/login_pemilih">Keluar</a>
+                {%endif%}
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      </div>
+      
+
+    </div>
+
+    {%if candidates%}
+    <div class="row ">
       {%for c in candidates%}
-      <div class="col-sm col-sm-4">
-        <div class="card" style="width: 20rem;">
+      <div class="col ">
+        <div class="card mx-auto" style="width: 15rem;">
           <img src="/static/img/{{c.filename}}" class="card-img-top" alt="...">
           <div class="card-title">
             <br>
             <h2 class="text-center">{{c.name}}</h2>
+          </div>
+          <div class="text-center">
+            <a class="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#VisiMisi{{c.id}}">Visi dan Misi</a>
           </div>
           <div class="card-body text-center">
             <form method="post" action="/vote/{{c.id}}">
@@ -30,8 +59,48 @@
           </div>
         </div>
       </div>
-    {%endfor%}
+
+      <!-- Modal Pemilih -->
+      <div class="modal fade" id="VisiMisi{{c.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Visi dan Misi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-left">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{c.name}}</li>
+                <li class="list-group-item">{{c.nim}}</li>
+                <li class="list-group-item">{{c.visi}}</li>
+                <li class="list-group-item">{{c.misi}}</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {%endfor%}
     </div>
+
+    <!-- {% if not current_user.code %} -->
+    <div class="row">
+      <div class="col">
+        <form method="post" action="/user/add_code" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="code">Code</label>
+            <input class="form-control" type="text" name="code" placeholder="misal: 23xc4" required>
+          </div>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <!-- {%endif%} -->
+    {%endif%}
+
+    <br>
   </div>  
 
 {%endblock%}

@@ -1,0 +1,47 @@
+{%extends "base.html"%}
+
+{%block content%}
+
+  
+
+  <div class="container mt-5">
+    <div class="row text-center">
+      <div class="col-sm">
+        <img class="img-thumbnail" src="/static/logo-3.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+     <div class="col-sm">
+        <img class="img-thumbnail" src="/static/unri.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+      <div class="col-sm">
+        <img class="img-thumbnail" src="/static/logo-2.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+    </div>
+
+    <div class="alert alert-success mt-4" role="alert">
+      <h4 class="alert-heading text-center">Selamat Datang di PEMIRA FMIPA UNRI 2020</h4>
+    </div>
+
+    <br>
+    
+    <div class="row">
+      <div class="col-sm col-sm-6">
+        <form method="post" action="/login_admin">
+          {%if message%}
+            <p>{{message}}</p>
+          {%endif%}
+          <div class="form-group">
+            <label for="nim">Nomor Admin</label>
+            <input class="form-control" type="text" name="nim" placeholder="misal: 190123209" required>
+          </div>
+          <input class="btn btn-primary" type="submit" name="">
+        </form>
+      </div>
+    </div>
+
+
+  </div>  
+
+{%endblock%}

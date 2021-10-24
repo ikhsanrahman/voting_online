@@ -4,7 +4,36 @@
 
 	<div class="container mt-5">
 	<button class="btn btn-primary mt" data-toggle="modal" data-target="#exampleModal">Tambah Kandidat</button>
+	<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Izinkan Kandidat Muncul di halaman depan website">
+		<form method="post" action="/admin/show_candidates" enctype="multipart/form-data">
+			<button type="submit" class="btn btn-success mt" >Tampilkan Kandidat</button>
+		</form>
+	</span>
+
+	<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Tarik kandidat dari tampilan publik">
+		<form method="post" action="/admin/undo_candidates" enctype="multipart/form-data">
+			<button type="submit" class="btn btn-success mt" >Tarik Kandidat</button>
+		</form>
+	</span>
 	<br><br>
+
+    <br>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	    <ul class=flashes>
+	    {% for message in messages %}
+	    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+		  <!-- <strong>Holy guacamole!</strong> You should check in on some of those fields below. -->
+	      <font size="2" style="font-family: Copperplate;"><p class="lead">{{message}}</p></font>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+	    {% endfor %}
+	    </ul>
+	  {% endif %}
+	{% endwith %}
+
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="document" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -19,6 +48,21 @@
 			  <div class="form-group">
 			    <label for="nama">Nama Kandidat</label>
 			    <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan nama kandidat">
+			  </div>
+
+			  <div class="form-group">
+			    <label for="nama">NIM</label>
+			    <input type="text" class="form-control" id="nama" name="nim" placeholder="Masukkan Nim Kandidat">
+			  </div>
+
+			  <div class="form-group">
+			    <label for="nama">Visi</label>
+			    <input type="text" class="form-control" id="nama" name="visi" placeholder="Masukkan Visi kandidat">
+			  </div>
+
+			  <div class="form-group">
+			    <label for="nama">Misi</label>
+			    <input type="text" class="form-control" id="nama" name="misi" placeholder="Masukkan Misi kandidat">
 			  </div>
 
 			  <div class="form-group">
@@ -43,6 +87,9 @@
 	    <tr>
 	      <th scope="col">No.</th>
 	      <th scope="col">Nama</th>
+	      <th scope="col">Nim</th>
+	      <th scope="col">Visi</th>
+	      <th scope="col">Misi</th>
 	      <th scope="col">Foto</th>
 	      <th scope="col">Hapus</th>
 	    </tr>
@@ -52,7 +99,10 @@
 	    <tr>
 	      <th scope="row">{{c.id}}</th>
 	      <td>{{c.name}}</td>
-	      <td>{{c.filename}}</td>
+	      <td>{{c.nim}}</td>
+	      <td>{{c.visi}}</td>
+	      <td>{{c.misi}}</td>
+	      <td><img src="/static/ktm/{{c.filename}}"></td>
 	      <td><a class="btn btn-danger" href="/admin/hapus/{{c.id}}">Hapus</a></td>
 	    </tr>
 	    {%endfor%}

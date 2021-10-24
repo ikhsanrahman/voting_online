@@ -9,8 +9,13 @@
 	    <tr>
 	      <th scope="col">No.</th>
 	      <th scope="col">Nama</th>
+	      <th scope="col">Code</th>
 	      <th scope="col">NIM</th>
+	      <th scope="col">Tanggal Lahir</th>
+	      <th scope="col">Photo Selfie</th>
 	      <th scope="col">Konfirmasi</th>
+	      <th scope="col">Status Memilih</th>
+	      <th scope="col">Action</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -18,9 +23,35 @@
 	    <tr>
 	      <th scope="row">{{loop.index}}</th>
 	      <td>{{u.name}}</td>
+	      <td>{{u.code}}</td>
 	      <td>{{u.nim}}</td>
+	      {%if u.birthday%}
+	      <td>{{u.birthday}}</td>
+	      {%else%}
+	      <td>YYYY-MM-DD</td>
+	      {%endif%}
+
+	      {%if u.selfi%}
+	      <td><img src="/static/ktm/{{u.selfi}}"></td>
+	      {%else%}
+	      <td>belum ada foto</td>
+	      {%endif%}
 	      <td>
-	      	Sudah
+	      	dikonfirmasi
+	      </td>
+	      {%if u.voted%}
+	      <td>
+	      	Sudah Memilih
+	      </td>
+	      {%else%}
+	      <td>
+	      	Belum Memilih
+	      </td>
+	      {%endif%}
+	      <td>
+	      	<form method="post" action="/admin/cancel_vote/{{u.id}}">
+	      		<input type="submit" class="btn btn-warning" name="" value="Cancel Vote">
+	      	</form>
 	      </td>
 	    </tr>
 	    {%endfor%}

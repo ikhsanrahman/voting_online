@@ -1,0 +1,61 @@
+{%extends "base.html"%}
+
+{%block content%}
+
+  
+
+  <div class="container mt-5">
+    <div class="row text-center">
+      <div class="col-sm">
+        <img class="img-thumbnail" src="/static/logo-3.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+     <div class="col-sm">
+        <img class="img-thumbnail" src="/static/unri.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+      <div class="col-sm">
+        <img class="img-thumbnail" src="/static/logo-2.png" style="width: 250px; height: 300px"></img>
+      </div>
+
+    </div>
+
+    <div class="alert alert-success mt-4" role="alert">
+      <h4 class="alert-heading text-center">Selamat Datang di PEMIRA FMIPA UNRI 2020</h4>
+    </div>
+
+    <br>
+    
+    <div class="row">
+      <div class="col-sm col-sm-6">
+        <form method="post" action="/login_pemilih" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="nim">Nomor Induk Mahasiswa</label>
+            <input class="form-control" type="text" name="nim" placeholder="misal: 190123209" required>
+          </div>
+          <div class="form-group">
+            <label for="birthday">Tanggal Lahir</label>
+            <input class="form-control" type="text" name="birthday" placeholder="misal: 2020-12-22" required>
+          </div>
+		  <div class="form-group">
+		    <label for="selfi+card">Selfi dengan Kartu Mahasiswa</label>
+		    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1" required>
+		  </div>
+          <input class="btn btn-primary" type="submit" name="">
+          {% with messages = get_flashed_messages() %}
+			  {% if messages %}
+			    <ul class=flashes>
+			    {% for message in messages %}
+			      <li>{{ message }}</li>
+			    {% endfor %}
+			    </ul>
+			  {% endif %}
+			{% endwith %}
+        </form>
+      </div>
+    </div>
+
+
+  </div>  
+
+{%endblock%}
