@@ -13,7 +13,7 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def prod():
     host = '0.0.0.0'
-    app.run(debug=True, port=5000)
+    app.run(host=host, debug=True, port=5000)
 
 @manager.command
 def init_db():
