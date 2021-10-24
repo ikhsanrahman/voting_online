@@ -12,7 +12,7 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def prod():
-    host = '127.0.0.1'
+    host = '0.0.0.0'
     app.run(debug=True, port=5000)
 
 @manager.command
