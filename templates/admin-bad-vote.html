@@ -3,35 +3,39 @@
 
 	<div class="container mt-5">
 	<br><br>
-		<div class="row">
-	      <div class="col">
-	      {% with messages = get_flashed_messages() %}
-	        {% if messages %}
-	          {% for message in messages %}
-	            <div class="alert alert-success" role="alert">
-	              <h4 class="alert-heading">{{message}} </h4>
-	              <div class="text-center">
-	                {%if "code" in message%}
-	                <font size="2" style="font-family: Copperplate;"><h3 class="display-5">Silahkan vote.</h3></font>
+	<div class="row">
+      <div class="col">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">{{message}} </h4>
+              <div class="text-center">
+                {%if "code" in message%}
+                <font size="2" style="font-family: Copperplate;"><h3 class="display-5">Silahkan vote.</h3></font>
 
-	                <!-- <a class="btn btn-primary" href="/login_pemilih">Keluar</a> -->
-	                {%else%}
-	                <a class="btn btn-primary" href="/admin/confirmed">Kembali</a>
-	                {%endif%}
-	              </div>
-	            </div>
-	          {% endfor %}
-	        {% endif %}
-	      {% endwith %}
-	      </div>
-	     </div>
+                <!-- <a class="btn btn-primary" href="/login_pemilih">Keluar</a> -->
+                {%else%}
+                <a class="btn btn-primary" href="/admin/confirmed">Kembali</a>
+                {%endif%}
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      </div>
+     </div>
+     <div class="row">
+     	
+     
 
-	<table class="table">
+	<table id="adminBadVote" class="table table-striped table-bordered" style="width:100%">
 	  <thead>
 	    <tr>
 	      <th scope="col">No.</th>
 	      <th scope="col">Nama</th>
 	      <th scope="col">Code</th>
+	      <th scope="col">Email</th>
 	      <th scope="col">NIM</th>
 	      <th scope="col">Tanggal Lahir</th>
 	      <th scope="col">Photo Selfie</th>
@@ -47,6 +51,7 @@
 	      <th scope="row">{{loop.index}}</th>
 	      <td>{{u.name}}</td>
 	      <td>{{u.code}}</td>
+	      <td>{{u.email}}</td>
 	      <td>{{u.nim}}</td>
 	      {%if u.birthday%}
 	      <td>{{u.birthday}}</td>
@@ -55,7 +60,7 @@
 	      {%endif%}
 
 	      {%if u.selfi%}
-	      <td><img src="/static/ktm/{{u.selfi}}"></td>
+	      <td><a href="/static/ktm/{{u.selfi}}">{{u.selfi}}</a>
 	      {%else%}
 	      <td>belum ada foto</td>
 	      {%endif%}
@@ -92,6 +97,16 @@
 	  </tbody>
 	</table>
 	</div>
+	</div>
+
+	  <script>
+    $(document).ready(function() {
+        $('#adminBadVote').DataTable({
+        	fixedHeader: true,
+        	scrollY: true
+        });
+    } );
+  </script>
 
 {%endblock%}
 

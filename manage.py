@@ -10,10 +10,10 @@ manager = Manager(app)
 
 manager.add_command('db', MigrateCommand)
 
-# @manager.command
-# def prod():
-#     host = '0.0.0.0'
-#     app.run(host=host, port=5000)
+@manager.command
+def prod():
+    host = '0.0.0.0'
+    app.run(host=host, debug=True, port=9000)
 
 @manager.command
 def init_db():

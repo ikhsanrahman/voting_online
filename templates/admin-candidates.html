@@ -102,8 +102,58 @@
 	      <td>{{c.nim}}</td>
 	      <td>{{c.visi}}</td>
 	      <td>{{c.misi}}</td>
-	      <td><img src="/static/ktm/{{c.filename}}"></td>
-	      <td><a class="btn btn-danger" href="/admin/hapus/{{c.id}}">Hapus</a></td>
+	      <td><a href="/static/img/{{c.filename}}"></a>
+	      <td>
+	      	<a class="btn btn-danger" href="/admin/hapus/{{c.id}}">Hapus</a>
+	      	<a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#EditKandidat{{c.id}}">Edit</a>
+			
+			<!-- Edit Kandidat -->
+			<div class="modal fade" id="EditKandidat{{c.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+				  <div class="modal-content">
+				    <div class="modal-header">
+				      <h5 class="modal-title" id="exampleModalCenterTitle">Visi dan Misi</h5>
+				      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				        <span aria-hidden="true">&times;</span>
+				      </button>
+				    </div>
+				    <div class="modal-body text-left">
+				    	<form method="post" action="/admin/update/{{c.id}}" enctype="multipart/form-data">
+						  <div class="form-group">
+						    <label for="nama">Nama Kandidat</label>
+						    <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan nama kandidat" value="{{c.name}}">
+						  </div>
+
+						  <div class="form-group">
+						    <label for="nama">NIM</label>
+						    <input type="text" class="form-control" id="nama" name="nim" placeholder="Masukkan Nim Kandidat" value="{{c.nim}}">
+						  </div>
+
+						  <div class="form-group">
+						    <label for="nama">Visi</label>
+						    <input type="text" class="form-control" id="nama" name="visi" placeholder="Masukkan Visi kandidat" value="{{c.visi}}">
+						  </div>
+
+						  <div class="form-group">
+						    <label for="nama">Misi</label>
+						    <input type="text" class="form-control" id="nama" name="misi" placeholder="Masukkan Misi kandidat" value="{{c.misi}}">
+						  </div>
+
+						  <div class="form-group">
+						    <label for="foto">Foto</label>
+						    <div class="custom-file">
+							  <input type="file" name="file" class="custom-file-input" id="customFile">
+							  <label class="custom-file-label" for="customFile">Pilih berkas foto</label>
+							</div>
+						  </div>
+						  <button type="submit" class="btn btn-primary">Edit</button>
+						</form>
+				    </div>
+
+				  </div>
+				</div>
+			</div>
+	      </td>
 	    </tr>
 	    {%endfor%}
 	  </tbody>

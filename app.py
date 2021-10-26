@@ -32,7 +32,7 @@ app.secret_key = "managaassQW"
 login = LoginManager(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "login_view"
+login_manager.login_view = "index_view"
 
 db = SQLAlchemy(app)
 from models import *
@@ -117,7 +117,6 @@ def login_pemilih():
         email = request.form["email"]
         file = request.files["file"]
         filename = generate_filename(file.filename)
-        # if filename in 
         file.save(os.path.join(app.config["UPLOAD_FOLDER"]+"/../ktm", filename))
         
         try: 
@@ -131,9 +130,16 @@ def login_pemilih():
                     login_user(user)
                     if user.role == "admin":
                         return redirect(url_for("admin_dashboard"))
-                    return redirect("/evote")
+
+                    candidates = Candidate.query.all()
+                    if candidates:
+                        return redirect("/evote")
+                    else:
+                        flash("Kandidat Belum ditambahkan. Silahkan hubungi bagian administrasi. ")
+                        return redirect("/evote")
+
                 else:
-                    flash("Silahkan masukkan data dengan benar!!!")
+                    flash("Silahkan masukkan data dengan benar. Check NIM dan EMAIL!!!")
                     return redirect("/")
         except:
             flash("Silahkan masukkan data dengan benar!!!")
@@ -212,6 +218,60 @@ def admin_dashboard():
         )
 
 
+@app.route("/admin/pemilih/hapus/<user_id>")
+@login_required
+def delete_peserta(user_id):
+    if current_user.role == "admin":
+        peserta = User.query.filter_by(id=user_id).first()
+        db.session.delete(peserta)
+        db.session.commit()
+        flash(f"Data pemilih {peserta.name} sudah di hapus")
+        return redirect("/admin/konfirmasi")
+    return redirect("/")
+
+@app.route("/admin/pemilih/update/<user_id>", methods=["GET", "POST"])
+@login_required
+def update_peserta(user_id):
+    if current_user.role == "admin":
+        if request.method == "POST":
+            name = request.form["name"]
+            nim = request.form["nim"]
+            email = request.form["email"]
+            birthday = request.form["birthday"]
+            user = User.query.filter_by(id=user_id).first()
+            if user:
+                user.name = name
+                user.nim = nim
+                user.email = email
+                user.birthday = birthday
+                db.session.commit()
+                flash(f"Data pemilih {name} sudah di update")
+                return redirect("/admin/konfirmasi")
+            else:
+                flash(f"Data pemilih {name} tidak tersedia di database. Silahkan hubungi administrasi untuk tindak lanjut.")
+                return redirect("/admin/konfirmasi")
+
+@app.route("/admin/pemilih/tambah", methods=["GET", "POST"])
+@login_required
+def tambah_peserta():
+    if current_user.role == "admin":
+        if request.method == "POST":
+            name = request.form["name"]
+            nim = request.form["nim"]
+            email = request.form["email"]
+            birthday = request.form["birthday"]
+            user = User.query.filter_by(nim=nim, email=email).first()
+            if not user:
+                new_user = User(nim=int(nim), name=name, email=email, birthday=birthday)
+                db.session.add(new_user)
+                db.session.commit()
+                flash(f"Data pemilih {name} berhasil ditambahkan")
+                return redirect("/admin/konfirmasi")
+            else:
+                flash(f"Data pemilih dengan nim {nim} sudah tersedia. silahkan masukkan data yang berbeda")
+                return redirect("/admin/konfirmasi")
+                
+
 @app.route("/admin/upload", methods=["GET", "POST"])
 @login_required
 def upload_peserta():
@@ -261,8 +321,6 @@ def add_candidate():
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
                 cand = Candidate.query.filter_by(name=name).first()
                 cand1 = Candidate.query.filter_by(nim=nim).first()
-                print(cand, cand1)
-                print(not cand, not cand1)
                 if not cand and not cand1:
                     u = Candidate(name=name, nim=nim, filename=filename, visi=visi, misi=misi)
                     db.session.add(u)
@@ -331,6 +389,43 @@ def delete_candidate(candidate_id):
         db.session.commit()
         return redirect("/admin/candidate")
     return redirect("/")
+
+
+@app.route("/admin/update/<candidate_id>", methods=["GET", "POST"])
+@login_required
+def update_candidate(candidate_id):
+    if current_user.role == "admin":
+        if request.method == "POST":
+            file = request.files["file"]
+            name = request.form["name"]
+            nim = request.form["nim"]
+            visi = request.form["visi"]
+            misi = request.form["misi"]
+            cand = Candidate.query.filter_by(id=candidate_id).first()
+            if cand:
+                cand.nim = nim
+                cand.name = name
+                cand.visi = visi
+                cand.misi = misi
+                if file:
+                    filename = generate_filename(file.filename)
+                    file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+                    cand.filename = filename
+
+                db.session.commit()
+                flash(f"Kandidat {name} berhasil di ubah.")
+                return redirect("/admin/candidate")
+            else:
+                flash("Kandidat sudah di ubah.")
+                candidates = Candidate.query.all()
+                return render_template("admin-candidates.html", candidates=candidates)
+            
+
+                
+
+        candidates = Candidate.query.all()
+        return render_template("admin-candidates.html", candidates=candidates)
+
 
 
 @app.route("/admin/confirmed")

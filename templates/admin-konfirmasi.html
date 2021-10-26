@@ -3,48 +3,178 @@
 
 	<div class="container mt-5">
 	<br><br>
+	<button class="btn btn-success mt" data-toggle="modal" data-target="#AddPemilih">Tambah Pemilih</button>
+	<!-- Tambah Pemilih -->
+	<div class="modal fade" id="AddPemilih" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-content">
+		    <div class="modal-header">
+		      <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Pemilih</h5>
+		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <span aria-hidden="true">&times;</span>
+		      </button>
+		    </div>
+		    <div class="modal-body text-left">
+		    	<form method="post" action="/admin/pemilih/tambah" enctype="multipart/form-data">
+				  <div class="form-group">
+				    <label for="nama">Nama</label>
+				    <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan Nama" value="">
+				  </div>
 
-	<table class="table">
-	  <thead>
-	    <tr>
-	      <th scope="col">No.</th>
-	      <th scope="col">Nama</th>
-	      <th scope="col">NIM</th>
-	      <th scope="col">Email</th>
-	      <th scope="col">Code</th>
-	      <th scope="col">Photo Selfie</th>
-	      <th scope="col">Konfirmasi</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  	{%for u in user%}
-	    <tr>
-	      <th scope="row">{{loop.index}}</th>
-	      <td>{{u.name}}</td>
-	      <td>{{u.nim}}</td>
-	      {%if u.birthday%}
-	      <td>{{u.email}}</td>
-	      <td>{{u.code}}</td>
-	      {%else%}
-	      <td>YYYY-MM-DD</td>
-	      {%endif%}
+				  <div class="form-group">
+				    <label for="nama">NIM</label>
+				    <input type="text" class="form-control" id="nama" name="nim" placeholder="Masukkan Nim" value="">
+				  </div>
 
-	      {%if u.selfie%}
-	      <td><img src="{url_for('static', u.selfie)}"></td>
-	      {%else%}
-	      <td>None</td>
-	      {%endif%}
+				  <div class="form-group">
+				    <label for="nama">Email</label>
+				    <input type="text" class="form-control" id="nama" name="email" placeholder="Masukkan Email" value="">
+				  </div>
 
-	      <td>
-	      	<form method="post" action="/admin/konfirm/{{u.id}}">
-	      		<input type="submit" class="btn btn-primary" name="" value="Konfirmasi">
-	      	</form>
-	      </td>
-	    </tr>
-	    {%endfor%}
-	  </tbody>
-	</table>
+				  <div class="form-group">
+				    <label for="nama">Tanggal Lahir</label>
+				    <input type="text" class="form-control" id="nama" name="birthday" placeholder="Masukkan Tanggal Lahir" value="">
+				  </div>
+				  <div class="text-right">
+					  <button type="submit" class="btn btn-primary">Edit</button>
+				  </div>
+				</form>
+		    </div>
+
+		  </div>
+		</div>
 	</div>
+	<br>
+	<br>
+	<div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+		  <!-- <strong>Holy guacamole!</strong> You should check in on some of those fields below. -->
+	      <font size="2" style="font-family: Copperplate;"><p class="lead">{{message}}</p></font>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+	</div>
+
+	<table id="adminKonfirmasi" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+	          <th scope="col">No.</th>
+		      <th scope="col">Nama</th>
+		      <th scope="col">NIM</th>
+		      <th scope="col">Email</th>
+		      <th scope="col">Code</th>
+		      <th scope="col">Birthday</th>
+		      <th scope="col">KTM</th>
+		      <th scope="col">Konfirmasi</th>
+		      <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%for u in user%}
+		    <tr>
+		      <th scope="row">{{loop.index}}</th>
+		      <td>{{u.name}}</td>
+		      <td>{{u.nim}}</td>
+		      <td>{{u.email}}</td>
+
+		      {%if u.code%}
+		      <td>{{u.code}}</td>
+		      {%else%}
+		      <td>Belum ada</td>
+		      {%endif%}
+
+		      {%if u.birthday%}
+		      <td>{{u.birthday}}</td>
+		      {%else%}
+		      <td>YYYY-MM-DD</td>
+		      {%endif%}
+
+		      {%if u.selfie%}
+		      <td>
+		      	<a href="/static/ktm/{{u.selfie}}">{{c.filename}}</a>
+		      </td>
+		      {%else%}
+		      <td>Belum ada</td>
+		      {%endif%}
+
+		      <td>
+		      	<form method="post" action="/admin/konfirm/{{u.id}}">
+		      		<input type="submit" class="btn btn-primary" name="" value="Konfirmasi">
+		      	</form>
+		      </td>
+		      <td>
+		      	<a class="btn btn-danger" href="/admin/pemilih/hapus/{{u.id}}">Hapus</a>
+		      	<a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#EditPemilih{{u.id}}">Edit</a>
+				
+				<!-- Edit Pemilih -->
+				<div class="modal fade" id="EditPemilih{{u.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+					  <div class="modal-content">
+					    <div class="modal-header">
+					      <h5 class="modal-title" id="exampleModalCenterTitle">Update Data Pemilih</h5>
+					      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					        <span aria-hidden="true">&times;</span>
+					      </button>
+					    </div>
+					    <div class="modal-body text-left">
+					    	<form method="post" action="/admin/pemilih/update/{{u.id}}" enctype="multipart/form-data">
+							  <div class="form-group">
+							    <label for="nama">Nama</label>
+							    <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan Nama" value="{{u.name}}">
+							  </div>
+
+							  <div class="form-group">
+							    <label for="nama">NIM</label>
+							    <input type="text" class="form-control" id="nama" name="nim" placeholder="Masukkan Nim" value="{{u.nim}}">
+							  </div>
+
+							  <div class="form-group">
+							    <label for="nama">Email</label>
+							    <input type="text" class="form-control" id="nama" name="email" placeholder="Masukkan Email" value="{{u.email}}">
+							  </div>
+
+							  <div class="form-group">
+							    <label for="nama">Tanggal Lahir</label>
+							    <input type="text" class="form-control" id="nama" name="birthday" placeholder="Masukkan Tanggal Lahir" value="{{u.birthday}}">
+							  </div>
+							  <div class="text-right">
+								  <button type="submit" class="btn btn-primary">Edit</button>
+							  </div>
+							</form>
+					    </div>
+
+					  </div>
+					</div>
+				</div>
+
+		      </td>
+		    </tr>
+	    {%endfor%}
+
+        </tbody>
+
+
+    </table>
+
+	</div>
+
+  <script>
+    $(document).ready(function() {
+        $('#adminKonfirmasi').DataTable({
+        	fixedHeader: true,
+        	scrollY: true
+        });
+    } );
+  </script>
 
 {%endblock%}
 

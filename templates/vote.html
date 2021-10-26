@@ -43,18 +43,18 @@
     <div class="row ">
       {%for c in candidates%}
       <div class="col ">
-        <div class="card mx-auto" style="width: 15rem;">
+        <div class="card mx-auto shadow-lg p-3 mb-5 bg-white rounded" style="width: 15rem;">
           <img src="/static/img/{{c.filename}}" class="card-img-top" alt="...">
           <div class="card-title">
             <br>
-            <h2 class="text-center">{{c.name}}</h2>
+            <h4 class="text-center">{{c.name}}</h4>
           </div>
           <div class="text-center">
-            <a class="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#VisiMisi{{c.id}}">Visi dan Misi</a>
+            <a class="btn btn-primary btn-md" role="button" data-toggle="modal" data-target="#VisiMisi{{c.id}}">Visi dan Misi</a>
           </div>
           <div class="card-body text-center">
             <form method="post" action="/vote/{{c.id}}">
-              <input class="btn btn-success " type="submit" name="" value="Vote">
+              <input class="btn btn-success btn-md" type="submit" name="" value="Vote">
             </form>
           </div>
         </div>
@@ -72,10 +72,10 @@
             </div>
             <div class="modal-body text-left">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{c.name}}</li>
-                <li class="list-group-item">{{c.nim}}</li>
-                <li class="list-group-item">{{c.visi}}</li>
-                <li class="list-group-item">{{c.misi}}</li>
+                <li class="list-group-item"><strong>Kandidat:</strong> {{c.name}}</li>
+                <li class="list-group-item"><strong>No:</strong> {{c.nim}}</li>
+                <li class="list-group-item"><strong>Visi:</strong> {{c.visi}}</li>
+                <li class="list-group-item"><strong>Misi:</strong> {{c.misi}}</li>
               </ul>
             </div>
 

@@ -4,12 +4,13 @@
 	<div class="container mt-5">
 	<br><br>
 
-	<table class="table">
+	<table id="adminIsAllowed" class="table table-striped table-bordered" style="width:100%">
 	  <thead>
 	    <tr>
 	      <th scope="col">No.</th>
 	      <th scope="col">Nama</th>
-	      <th scope="col">code</th>
+	      <th scope="col">Code</th>
+	      <th scope="col">Email</th>
 	      <th scope="col">NIM</th>
 	      <th scope="col">Tanggal Lahir</th>
 	      <th scope="col">Photo Selfie</th>
@@ -23,15 +24,16 @@
 	      <th scope="row">{{loop.index}}</th>
 	      <td>{{u.name}}</td>
 	      <td>{{u.code}}</td>
+	      <td>{{u.email}}</td>
 	      <td>{{u.nim}}</td>
 	      {%if u.birthday%}
-	      <td>{{u.birthday}}</td>
+	      <td>{{u.birthday}} </td>
 	      {%else%}
 	      <td>YYYY-MM-DD</td>
 	      {%endif%}
 
 	      {%if u.selfi%}
-	      <td><img src="/static/ktm/{{u.selfi}}"></td>
+	      <td><a href="/static/ktm/{{u.selfi}}">{{u.selfi}}</a>
 	      {%else%}
 	      <td>None</td>
 	      {%endif%}
@@ -53,6 +55,15 @@
 	  </tbody>
 	</table>
 	</div>
+
+  <script>
+    $(document).ready(function() {
+        $('#adminIsAllowed').DataTable({
+        	fixedHeader: true,
+        	scrollY: true
+        });
+    } );
+  </script>
 
 {%endblock%}
 

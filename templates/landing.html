@@ -8,7 +8,7 @@
     <div class="container text-center">
       <div class="row">
         <div class="col">
-          <font size="2" style="font-family: Copperplate;"><h3 class="display-5">Ingin tau sapa kandidat nya ???</h3></font>
+          <font size="2" style="font-family: Copperplate;"><h3 class="display-5">Ingin tau siapa kandidat nya ???</h3></font>
           <!-- <h1 class="display-5"></h1> -->
           <font size="2" style="font-family: Copperplate;"><p class="lead">Klik tombol dibawah ini <i class="fas fa-hand-point-down"></i></p></font>
           <div class="text-center">
@@ -127,13 +127,39 @@
                 {%for c in candidates%}
                 {%if c.display %}
                 <div class="col">
-                  <div class="card mx-auto" style="width: 10rem;">
+                  <div class="card mx-auto shadow-lg p-3 mb-5 bg-white rounded" style="width: 15rem;">
                     <img src="/static/img/{{c.filename}}" class="card-img-top" alt="...">
-                    <div class="card-title text-center">
-                      <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.name}}</h3></font>
+                    <div class="card-title">
+                      <br>
+                      <div class="text-center">
+                        <a class="btn btn-primary" role="button" data-toggle="modal" data-target="#VisiMisi{{c.id}}">Visi dan Misi</a>
+                      </div>
+                      <!-- Modal Pemilih -->
+                      <div class="modal fade" id="VisiMisi{{c.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalCenterTitle">Visi dan Misi</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body text-left">
+                              <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Kandidat:</strong> {{c.name}}</li>
+                                <li class="list-group-item"><strong>No:</strong> {{c.nim}}</li>
+                                <li class="list-group-item"><strong>Visi:</strong> {{c.visi}}</li>
+                                <li class="list-group-item"><strong>Misi:</strong> {{c.misi}}</li>
+                              </ul>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.name}}</h3></font>
                       <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.nim}}</h3></font>
                       <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.visi}}</h3></font>
-                      <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.misi}}</h3></font>
+                      <font size="2" style="font-family: Copperplate;"><h3 class="display-5">{{c.misi}}</h3></font> -->
                       
                     </div>
                   </div>
