@@ -26,6 +26,7 @@ db_change:
 	python3 manage.py db upgrade
 
 run:
+	rm -rf evoted.db migrations
 	make init_db
 	make add_admin
 	make prod
