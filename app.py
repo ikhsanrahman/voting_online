@@ -24,7 +24,7 @@ from script.helper import allowed_file, current_time, time2time, generate_filena
 
 app = Flask(__name__)
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///evote.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://qxrnozgqzwvbdx:4893e515c63a57a86587d253ba222285d2d96b4beb1c9f6d3590dbad54297da8@ec2-54-166-37-125.compute-1.amazonaws.com:5432/d28790vk9uq0sf'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://qxrnozgqzwvbdx:4893e515c63a57a86587d253ba222285d2d96b4beb1c9f6d3590dbad54297da8@ec2-54-166-37-125.compute-1.amazonaws.com:5432/d28790vk9uq0sf'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = "static/img"
 app.secret_key = "managaassQW"
